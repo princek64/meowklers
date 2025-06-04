@@ -1,29 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTheme } from '@/context/ThemeContext';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming,
+  withDelay,
+} from 'react-native-reanimated';
 
 export function BackgroundPattern() {
   const { theme, themeType } = useTheme();
-  
+  const opacity = useSharedValue(themeType === 'dark' ? 0.05 : 0.03);
+  const scale1 = useSharedValue(1);
+  const scale2 = useSharedValue(1);
+  const scale3 = useSharedValue(1);
+  const scale4 = useSharedValue(1);
+  const scale5 = useSharedValue(1);
+
+  useEffect(() => {
+    const duration = 4000;
+    const scales = [scale1, scale2, scale3, scale4, scale5];
+    
+    scales.forEach((scale, index) => {
+      scale.value = withRepeat(
+        withDelay(
+          index * 800,
+          withSequence(
+            withTiming(1.2, { duration: duration / 2 }),
+            withTiming(1, { duration: duration / 2 })
+          )
+        ),
+        -1,
+        true
+      );
+    });
+  }, []);
+
+  const animatedStyles = (scale: Animated.SharedValue<number>) =>
+    useAnimatedStyle(() => ({
+      transform: [{ scale: scale.value }, { rotate: '45deg' }],
+    }));
+
   return (
     <View style={[styles.container, { opacity: themeType === 'dark' ? 0.05 : 0.03 }]}>
       <View style={styles.patternContainer}>
-        {/* Cat paw pattern images */}
-        <View style={[styles.paw, styles.paw1]}>
+        <Animated.View style={[styles.paw, styles.paw1, animatedStyles(scale1)]}>
           <View style={[styles.pawImage, { backgroundColor: theme.colors.primary }]} />
-        </View>
-        <View style={[styles.paw, styles.paw2]}>
+        </Animated.View>
+        <Animated.View style={[styles.paw, styles.paw2, animatedStyles(scale2)]}>
           <View style={[styles.pawImage, { backgroundColor: theme.colors.secondary }]} />
-        </View>
-        <View style={[styles.paw, styles.paw3]}>
+        </Animated.View>
+        <Animated.View style={[styles.paw, styles.paw3, animatedStyles(scale3)]}>
           <View style={[styles.pawImage, { backgroundColor: theme.colors.accent }]} />
-        </View>
-        <View style={[styles.paw, styles.paw4]}>
+        </Animated.View>
+        <Animated.View style={[styles.paw, styles.paw4, animatedStyles(scale4)]}>
           <View style={[styles.pawImage, { backgroundColor: theme.colors.primary }]} />
-        </View>
-        <View style={[styles.paw, styles.paw5]}>
+        </Animated.View>
+        <Animated.View style={[styles.paw, styles.paw5, animatedStyles(scale5)]}>
           <View style={[styles.pawImage, { backgroundColor: theme.colors.secondary }]} />
-        </View>
+        </Animated.View>
       </View>
     </View>
   );
@@ -48,34 +85,33 @@ const styles = StyleSheet.create({
   },
   paw: {
     position: 'absolute',
-    width: 60,
-    height: 60,
-    transform: [{ rotate: '45deg' }],
+    width: 80,
+    height: 80,
   },
   pawImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 30,
+    borderRadius: 40,
     opacity: 0.3,
   },
   paw1: {
-    top: '10%',
-    left: '15%',
+    top: '15%',
+    left: '20%',
   },
   paw2: {
-    top: '30%',
-    right: '20%',
+    top: '35%',
+    right: '25%',
   },
   paw3: {
-    bottom: '25%',
-    left: '25%',
+    bottom: '30%',
+    left: '30%',
   },
   paw4: {
-    bottom: '15%',
-    right: '15%',
+    bottom: '20%',
+    right: '20%',
   },
   paw5: {
-    top: '50%',
-    left: '50%',
+    top: '55%',
+    left: '45%',
   },
 });
