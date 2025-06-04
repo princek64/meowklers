@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, View } from 'react-native';
 import { employees } from '@/data/employees';
 import { EmployeeCard } from '@/components/EmployeeCard';
 import { Header } from '@/components/Header';
+import { BackgroundPattern } from '@/components/BackgroundPattern';
 import { useTheme } from '@/context/ThemeContext';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
@@ -11,6 +12,7 @@ export default function TeamScreen() {
   
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <BackgroundPattern />
       <Header title="Directory" />
       
       <FlatList
