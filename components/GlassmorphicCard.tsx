@@ -14,10 +14,21 @@ export function GlassmorphicCard({
   style, 
   intensity = 40 
 }: GlassmorphicCardProps) {
-  const { themeType } = useTheme();
+  const { theme, themeType } = useTheme();
   
   return (
-    <View style={[styles.container, style]}>
+    <View style={[
+      styles.container, 
+      { 
+        backgroundColor: themeType === 'light' 
+          ? 'rgba(255, 255, 255, 0.9)' 
+          : 'rgba(30, 30, 60, 0.7)',
+        borderColor: themeType === 'light'
+          ? 'rgba(0, 0, 0, 0.1)'
+          : 'rgba(255, 255, 255, 0.2)',
+      },
+      style
+    ]}>
       <BlurView
         intensity={intensity}
         tint={themeType}
@@ -33,7 +44,14 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
   content: {
     padding: 16,
