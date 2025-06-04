@@ -24,11 +24,13 @@ export function SearchBar({
   return (
     <GlassmorphicCard style={styles.container}>
       <View style={styles.searchContainer}>
-        <Search 
-          size={20} 
-          color={theme.colors.textSecondary} 
-          style={styles.icon} 
-        />
+        <View style={styles.iconWrapper}>
+          <Search
+            size={24}
+            color={theme.colors.textSecondary}
+            style={styles.icon}
+          />
+        </View>
         <TextInput
           style={[styles.input, { color: theme.colors.text }]}
           value={value}
@@ -57,6 +59,12 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  iconWrapper: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   icon: {
     marginRight: 8,

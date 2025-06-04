@@ -40,20 +40,21 @@ export const employees: Employee[] = [
     team: 'Web Development',
     location: 'Gurugram, INDIA',
     avatar:
-      'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg',
-    meowline: 'Turning coffee into purr-fect code since 2015',
+      'https://cdn.pixabay.com/photo/2024/08/01/11/26/animal-8936898_960_720.jpg',
+    meowline: 'Turning coffee into purr-fect code!',
     skills: [
-      { id: '1', name: 'React', level: 'expert' },
-      { id: '2', name: 'TypeScript', level: 'expert' },
-      { id: '3', name: 'CSS/SASS', level: 'advanced' },
-      { id: '4', name: 'React Native', level: 'intermediate' },
-      { id: '5', name: 'GraphQL', level: 'intermediate' },
+      { id: '1', name: 'React', level: 'intermediate' },
+      { id: '2', name: 'Vue', level: 'expert' },
+      { id: '3', name: 'TypeScript', level: 'expert' },
+      { id: '4', name: 'Tailwind', level: 'advanced' },
+      { id: '5', name: 'React Native', level: 'intermediate' },
+      { id: '6', name: 'Angular', level: 'intermediate' },
     ],
     currentProjects: [
       {
         id: generateId(),
         name: 'Orbit Four',
-        description: 'Revamping the UX/UI of the PawsApp platform',
+        description: 'Revamping the UX/UI of the Orbit Four platform',
         techStack: ['Vue', 'NuxtJS', 'Tailwind', 'Styled Components'],
         year: 2025,
         status: 'in-progress',
@@ -83,7 +84,7 @@ export const employees: Employee[] = [
         id: generateId(),
         name: 'Miller Johnson',
         description: 'Online store for premium cat products',
-        techStack: ['React', 'Node.js', 'MongoDB'],
+        techStack: ['React', 'Material UI', 'Node.js', 'MongoDB'],
         year: 2023,
         status: 'completed',
         duration: '8 months',
@@ -92,9 +93,9 @@ export const employees: Employee[] = [
     futureProjects: [
       {
         id: generateId(),
-        name: 'CatNap',
+        name: 'MyObits App',
         description: 'Sleep tracking app for cat owners',
-        techStack: ['React Native', 'Expo', 'Firebase'],
+        techStack: ['React Native', 'Expo', 'Supabase'],
         year: 2022,
         status: 'planned',
         duration: '6 months',
@@ -110,7 +111,7 @@ export const employees: Employee[] = [
     team: 'API Services',
     location: 'Detroit, Michigan',
     avatar:
-      'https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg',
+      'https://cdn.pixabay.com/photo/2020/11/15/18/31/cat-5746771_1280.png',
     meowline: 'Building robust purr-formance APIs with naps in between',
     skills: [
       { id: '1', name: 'Node.js', level: 'expert' },
@@ -133,7 +134,7 @@ export const employees: Employee[] = [
     pastProjects: [
       {
         id: generateId(),
-        name: 'K Promise',
+        name: 'Kalamazoo Promise',
         description: 'RESTful API for yarn inventory management',
         techStack: ['Python', 'FastAPI', 'PostgreSQL'],
         year: 2024,
@@ -150,7 +151,8 @@ export const employees: Employee[] = [
     role: 'UX/UI Designer',
     team: 'Design',
     location: 'Portland, OR',
-    avatar: 'https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg',
+    avatar:
+      'https://cdn.pixabay.com/photo/2024/08/13/10/12/ai-generated-8965656_1280.png',
     meowline: 'Crafting pawsitively beautiful user experiences',
     skills: [
       { id: '1', name: 'Figma', level: 'expert' },
@@ -162,7 +164,7 @@ export const employees: Employee[] = [
     currentProjects: [
       {
         id: generateId(),
-        name: 'MyObits App Design',
+        name: 'Burgess Concrete App Design',
         description: 'Designing a social media app for cat lovers',
         techStack: ['Figma', 'Prototyping', 'User Testing'],
         year: 2025,
@@ -191,7 +193,7 @@ export const employees: Employee[] = [
     team: 'Infrastructure',
     location: 'Seattle, WA',
     avatar:
-      'https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg',
+      'https://cdn.pixabay.com/photo/2019/09/22/04/48/cat-4495099_1280.png',
     meowline: 'Automating the litter box of deployment',
     skills: [
       { id: '1', name: 'Kubernetes', level: 'expert' },
@@ -231,7 +233,8 @@ export const employees: Employee[] = [
     role: 'Full Stack Developer',
     team: 'Product Development',
     location: 'Chicago, IL',
-    avatar: 'https://images.pexels.com/photos/20787/pexels-photo.jpg',
+    avatar:
+      'https://cdn.pixabay.com/photo/2025/05/16/01/25/cat-9602849_1280.png',
     meowline: 'Coding from whiskers to tail, full stack purr-velopment',
     skills: [
       { id: '1', name: 'JavaScript', level: 'expert' },
@@ -243,7 +246,7 @@ export const employees: Employee[] = [
     currentProjects: [
       {
         id: generateId(),
-        name: 'Meow Messenger',
+        name: 'Manzana',
         description: 'Real-time messaging application',
         techStack: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
         year: 2025,
@@ -254,7 +257,7 @@ export const employees: Employee[] = [
     pastProjects: [
       {
         id: generateId(),
-        name: 'Purr Portfolio',
+        name: 'FixtureWorks',
         description: 'Portfolio site generator for cat professionals',
         techStack: ['Next.js', 'Tailwind CSS', 'Vercel'],
         year: 2024,
@@ -267,11 +270,12 @@ export const employees: Employee[] = [
   },
   {
     id: '6',
-    name: 'Max Scratchington',
+    name: 'Spencer Deering',
     role: 'QA Engineer',
     team: 'Quality Assurance',
     location: 'Boston, MA',
-    avatar: 'https://images.pexels.com/photos/127028/pexels-photo-127028.jpeg',
+    avatar:
+      'https://cdn.pixabay.com/photo/2023/07/30/00/12/cat-8157889_1280.png',
     meowline: 'Finding bugs before they hiss at the users',
     skills: [
       { id: '1', name: 'Selenium', level: 'expert' },
@@ -283,7 +287,7 @@ export const employees: Employee[] = [
     currentProjects: [
       {
         id: generateId(),
-        name: 'CatNap Test Suite',
+        name: 'Mall City Mechancial',
         description: 'Automated testing framework for sleep tracking app',
         techStack: ['Cypress', 'TestRail', 'GitHub Actions'],
         year: 2025,
@@ -294,7 +298,7 @@ export const employees: Employee[] = [
     pastProjects: [
       {
         id: generateId(),
-        name: 'Litter Bug Tracker',
+        name: 'Robert Clancy Contracting',
         description: 'Issue tracking and test case management system',
         techStack: ['JavaScript', 'Node.js', 'MongoDB'],
         year: 2024,

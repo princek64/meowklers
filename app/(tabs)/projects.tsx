@@ -11,7 +11,7 @@ import Animated, { FadeInUp } from 'react-native-reanimated';
 export default function ProjectsScreen() {
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   
   // Get all projects from all employees
   const allProjects = employees.flatMap(employee => 
@@ -32,19 +32,15 @@ export default function ProjectsScreen() {
       );
 
     const matchesStatus =
-      selectedStatus.length === 0 ||
-      selectedStatus.some(status =>
-        project.status === status.replace(' ', '-')
-      );
+      !selectedStatus ||
+      project.status === selectedStatus.replace(' ', '-');
 
     return matchesSearch && matchesStatus;
   });
-  
+
   const handleStatusSelect = (status: string) => {
-    setSelectedStatus(prev => 
-      prev.includes(status) 
-        ? prev.filter(s => s !== status) 
-        : [...prev, status]
+    setSelectedStatus(prev =>
+      prev === status ? null : status
     );
   };
   
@@ -58,11 +54,11 @@ export default function ProjectsScreen() {
         placeholder="Search projects..." 
       />
       
-      <FilterChips 
-        options={statusOptions.map(s => s.replace('-', ' '))} 
-        selectedOptions={selectedStatus.map(s => s.replace('-', ' '))} 
-        onSelect={handleStatusSelect} 
-        label="Filter by status" 
+      <FilterChips
+        options={statusOptions.map(s => s.replace('-', ' '))}
+        selectedOptions={selectedStatus ? [selectedStatus.replace('-', ' ')] : []}
+        onSelect={handleStatusSelect}
+        label="Filter by status"
       />
       
       {filteredProjects.length > 0 ? (

@@ -24,14 +24,17 @@ export function Header({ title, showBack = false }: HeaderProps) {
             <ArrowLeft size={24} color={theme.colors.text} />
           </TouchableOpacity>
         ) : (
-          <View style={styles.logoContainer}>
+          <TouchableOpacity
+            style={styles.logoContainer}
+            onPress={() => router.push('/')}
+          >
             <Text style={[styles.logo, { color: theme.colors.primary }]}>
               Meow
             </Text>
             <Text style={[styles.logoSecondary, { color: theme.colors.accent }]}>
               klers
             </Text>
-          </View>
+          </TouchableOpacity>
         )}
         
         <Text style={[styles.title, { color: theme.colors.text }]}>

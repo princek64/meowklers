@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     padding: 12,
     borderRadius: 8,
-    backgroundColor: 'rgba(138, 79, 255, 0.1)',
+    backgroundColor: 'rgba(116, 68, 212, 0.1)',
   },
   meowline: {
     fontSize: 16,

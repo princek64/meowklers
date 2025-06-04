@@ -56,7 +56,7 @@ export function EmployeeCard({ employee }: EmployeeCardProps) {
             <Text style={[styles.role, { color: theme.colors.textSecondary }]}>
               {employee.role}
             </Text>
-            <Text style={[styles.meowline, { color: theme.colors.primary }]}>
+            <Text style={[styles.meowline, { color: theme.colors.primary }]} >
               "{employee.meowline}"
             </Text>
           </View>
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flex: 1,
+    flexShrink: 1
   },
   name: {
     fontSize: 18,
