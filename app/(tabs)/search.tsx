@@ -1,52 +1,70 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View, Text } from 'react-native';
-import { employees, getAllSkills, getAllTechStack } from '@/data/employees';
+import { StyleSheet, FlatList, View, Text, ActivityIndicator } from 'react-native';
 import { EmployeeCard } from '@/components/EmployeeCard';
 import { Header } from '@/components/Header';
 import { SearchBar } from '@/components/SearchBar';
 import { FilterChips } from '@/components/FilterChips';
 import { useTheme } from '@/context/ThemeContext';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { getEmployees, getAllSkills, getAllTechStack } from '@/lib/data';
+import type { Employee } from '@/lib/data';
 
 export default function SearchScreen() {
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
-  const [filteredEmployees, setFilteredEmployees] = useState(employees);
-  
-  const allSkills = getAllSkills();
-  const allTechStack = getAllTechStack();
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [skills, setSkills] = useState<string[]>([]);
+  const [techStack, setTechStack] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // Filter employees based on search query and selected filters
-    const filtered = employees.filter(employee => {
-      // Search by name or role
-      const matchesSearch = 
-        searchQuery === '' || 
-        employee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        employee.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        employee.meowline.toLowerCase().includes(searchQuery.toLowerCase());
+    loadData();
+  }, []);
+
+  async function loadData() {
+    try {
+      const [employeesData, skillsData, techStackData] = await Promise.all([
+        getEmployees(),
+        getAllSkills(),
+        getAllTechStack()
+      ]);
       
-      // Filter by selected skills
-      const matchesSkills = 
-        selectedSkills.length === 0 || 
-        employee.skills.some(skill => 
-          selectedSkills.includes(skill.name)
-        );
-      
-      // Filter by selected tech stack
-      const matchesTech = 
-        selectedTech.length === 0 || 
-        employee.currentProjects.concat(employee.pastProjects).concat((employee.futureProjects || [])).some(project => 
-          project.techStack.some(tech => selectedTech.includes(tech))
-        );
-      
-      return matchesSearch && matchesSkills && matchesTech;
-    });
+      setEmployees(employeesData);
+      setSkills(skillsData);
+      setTechStack(techStackData);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  
+  const filteredEmployees = employees.filter(employee => {
+    // Search by name or role
+    const matchesSearch = 
+      searchQuery === '' || 
+      employee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      employee.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      employee.meowline.toLowerCase().includes(searchQuery.toLowerCase());
     
-    setFilteredEmployees(filtered);
-  }, [searchQuery, selectedSkills, selectedTech]);
+    // Filter by selected skills
+    const matchesSkills = 
+      selectedSkills.length === 0 || 
+      employee.skills.some(skill => 
+        selectedSkills.includes(skill.name)
+      );
+    
+    // Filter by selected tech stack
+    const matchesTech = 
+      selectedTech.length === 0 || 
+      [...employee.currentProjects, ...employee.pastProjects, ...employee.futureProjects].some(project => 
+        project.techStack.some(tech => selectedTech.includes(tech))
+      );
+    
+    return matchesSearch && matchesSkills && matchesTech;
+  });
   
   const handleSkillSelect = (skill: string) => {
     setSelectedSkills(prev => 
@@ -64,6 +82,14 @@ export default function SearchScreen() {
     );
   };
   
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.loading, { backgroundColor: theme.colors.background }]}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
+    );
+  }
+  
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <Header title="Search" />
@@ -75,14 +101,14 @@ export default function SearchScreen() {
       />
       
       <FilterChips 
-        options={allSkills} 
+        options={skills} 
         selectedOptions={selectedSkills} 
         onSelect={handleSkillSelect} 
         label="Filter by skills" 
       />
       
       <FilterChips 
-        options={allTechStack} 
+        options={techStack} 
         selectedOptions={selectedTech} 
         onSelect={handleTechSelect} 
         label="Filter by tech stack" 
@@ -112,9 +138,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  loading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   listContent: {
     padding: 16,
-    paddingBottom: 80, // Add extra padding for the tab bar
+    paddingBottom: 80,
   },
   emptyContainer: {
     flex: 1,
